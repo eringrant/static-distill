@@ -1,0 +1,78 @@
+---
+layout: base.njk
+---
+
+<div class="d-title base-grid">
+  {% if status %}
+  <div class="status" style="grid-column: kicker;">
+    <span>{{ status }}</span>
+  </div>
+  {% endif %}
+  <h1>{{ title }}</h1>
+  {% if subtitle %}
+  <p class="d-title-subtitle">{{ subtitle }}</p>
+  {% endif %}
+  {% if headerImage %}
+  <figure class="d-title-figure">
+    <img src="{{ headerImage }}" />
+  </figure>
+  {% endif %}
+  {% if leadParagraph %}
+  <p class="d-title-lead">{{ leadParagraph | citations | safe }}</p>
+  {% endif %}
+</div>
+
+<div class="d-byline base-grid">
+  <div class="d-byline-wrapper">
+    {% if authors %}
+      <div class="d-byline-authors">
+        {% for author in authors -%}
+          {%- if author.authorURL %}<a href="{{ author.authorURL }}" class="author-name">{{ author.author }}</a>{% else %}<span class="author-name">{{ author.author }}</span>{% endif -%}
+          {%- if author.affiliations %}
+            <span class="author-affiliations">
+              {%- for affiliation in author.affiliations -%}
+                {%- if affiliation.url %}<a href="{{ affiliation.url }}">{{ affiliation.name }}</a>{% else %}{{ affiliation.name }}{% endif -%}
+                {%- if not loop.last %}, {% endif -%}
+              {%- endfor -%}
+            </span>
+          {%- endif -%}
+          {%- if not loop.last %} • {% endif -%}
+        {%- endfor %}
+      </div>
+    {% endif %}
+    {% if published %}
+      <div class="d-byline-date">
+        Published {{ published }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<article class="d-article base-grid">
+  {{ content | safe }}
+</article>
+
+<div class="d-appendix base-grid">
+  <div class="d-appendix-wrapper">
+    {% if appendixContent %}
+      {{ appendixContent | safe }}
+    {% endif %}
+
+    {# Footnotes will be rendered if any were collected #}
+    {# The footnote shortcode handles this automatically #}
+
+    {% if references and references.length > 0 %}
+    <h3>References</h3>
+    <ol class="d-citation-list">
+      {% for reference in references %}
+      <li>{{ reference | bibliography_entry | safe }}</li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+
+    <h3>Acknowledgments</h3>
+    <p class="acknowledgment-text">
+      This article was created as an example of the Distill template converted to a static site using Eleventy.
+    </p>
+  </div>
+</div>

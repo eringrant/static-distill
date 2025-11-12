@@ -1,0 +1,30 @@
+---
+layout: base.njk
+title: "Distill Template - Static Edition"
+---
+
+<div class="base-grid" style="padding: 4rem 0;">
+  <div style="grid-column: text;">
+    <h1>Distill Template</h1>
+    <p class="subtitle">A static site generator version using Eleventy</p>
+
+    <h2>Articles</h2>
+    <ul>
+    {%- for article in collections.articles -%}
+      <li><a href="{{ article.url }}">{{ article.data.title }}</a></li>
+    {%- endfor -%}
+    </ul>
+
+    <h2>About</h2>
+    <p>This is a port of the <a href="https://github.com/distillpub/distill-template">Distill template</a> to a static site format using <a href="https://www.11ty.dev/">Eleventy (11ty)</a>.</p>
+
+    <h3>Features</h3>
+    <ul>
+      <li>Responsive grid layout system</li>
+      <li>Mathematical typesetting with KaTeX</li>
+      <li>Syntax highlighting with Prism</li>
+      <li>Citations and footnotes</li>
+      <li>Semantic HTML with utility classes</li>
+    </ul>
+  </div>
+</div>

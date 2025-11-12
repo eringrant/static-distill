@@ -1,0 +1,107 @@
+---
+layout: article.njk
+title: "Why Momentum Really Works"
+description: "Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading."
+published: "Jan 10, 2017"
+authors:
+  - author: "Chris Olah"
+    authorURL: "https://colah.github.io/"
+    affiliations:
+      - name: "Google Brain"
+  - author: "Ludwig Schubert"
+    authorURL: "https://shancarter.com/"
+    affiliations:
+      - name: "Google Brain"
+        url: "https://g.co/brain"
+  - author: "Shan Carter"
+    authorURL: "https://shancarter.com/"
+    affiliations:
+      - name: "Google Brain"
+        url: "https://g.co/brain"
+      - name: "NYT"
+        url: "https://nytimes.com"
+headerImage: "/images/momentum.png"
+leadParagraph: 'We often think of Momentum[@mercier2011humans] as a means of dampening oscillations and speeding up the iterations, leading to faster convergence. But it has other interesting behavior. It allows a larger range of step-sizes to be used, and creates its own oscillations. What is going on?'
+---
+
+<a class="marker" href="#section-1" id="section-1"><span>1</span></a>
+<h2>A Brief Survey of Techniques</h2>
+
+<p>Before diving in: if you haven't encountered t-SNE before, here's what you need to know about the math behind it. The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying data, performing different transformations on different regions. Those differences can be a major source of confusion.</p>
+
+<p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
+
+<p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two. Some flopping fins; for diving.</p>
+
+<aside>Some text in an aside, margin notes, etc...</aside>
+
+<p>Here's a test of an inline equation {% math "c = a^2 + b^2" %}. Also with configurable katex standards just using inline '$' signs: {% math "x^2" %} And then there's a block equation:</p>
+
+{% mathblock %}
+c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
+{% endmathblock %}
+
+<p>Math can also be quite involved:</p>
+
+{% mathblock %}
+\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
+{% endmathblock %}
+
+<a class="marker" href="#section-1.1" id="section-1.1"><span>1.1</span></a>
+<h3>Citations</h3>
+
+<p>{{ "We can[@mercier2011humans] also cite [@gregor2015draw; @mercier2011humans; @openai2018charter] external publications. [@dong2014image; @dumoulin2016guide; @mordvintsev2015inceptionism]." | citations | safe }} We should also be testing footnotes{% footnote %}This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.{% endfootnote %}. There are multiple footnotes, and they appear in the appendix{% footnote %}Given I have coded them right. Also, here's math in a footnote: {% math "c = \\sum_0^i{x}" %}. Also, a citation. Box-ception[@gregor2015draw]!{% endfootnote %} as well.</p>
+
+<a class="marker" href="#section-2" id="section-2"><span>2</span></a>
+<h2>Displaying code snippets</h2>
+
+<p>Some inline javascript: <code class="language-javascript">var x = 25;</code>. And here's a javascript code block.</p>
+
+{% codeblock "javascript" %}
+var x = 25;
+function(x){
+  return x * x;
+}
+{% endcodeblock %}
+
+<p>We also support python.</p>
+
+{% codeblock "python" %}
+# Python 3: Fibonacci series up to n
+def fib(n):
+    a, b = 0, 1
+    while a < n:
+        print(a, end=' ')
+        a, b = b, a+b
+{% endcodeblock %}
+
+<p>And a table</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Second</th>
+      <th>Third</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>23</td>
+      <td>654</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>54</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>234</td>
+      <td>54</td>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>That's it for the example article!</p>
