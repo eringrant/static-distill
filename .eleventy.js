@@ -66,12 +66,28 @@ module.exports = async function(eleventyConfig) {
     return `<pre><code class="language-${language}">${content.trim()}</code></pre>`;
   });
 
-  // Footnote shortcode
+  // Footnote shortcode with tooltip
   eleventyConfig.addPairedShortcode("footnote", function(content) {
     footnoteCounter++;
     const id = footnoteCounter;
     footnotes.push({ id, content });
-    return `<sup class="footnote-ref"><a href="#fn${id}" id="fnref${id}">[${id}]</a></sup>`;
+
+    // Strip HTML tags for tooltip (keep only text content)
+    const stripHtml = (html) => {
+      return html
+        .replace(/<[^>]*>/g, '') // Remove HTML tags
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&')
+        .trim();
+    };
+
+    const plainText = stripHtml(content);
+    const escapedContent = plainText.replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+
+    return `<sup class="footnote-ref"><a href="#fn${id}" id="fnref${id}" class="tooltip" data-tooltip="${escapedContent}" tabindex="0">[${id}]</a></sup>`;
   });
 
   // Citation shortcode is now provided by eleventy-plugin-citations
@@ -80,6 +96,57 @@ module.exports = async function(eleventyConfig) {
   // Filter to get all footnotes
   eleventyConfig.addFilter("getFootnotes", function() {
     return footnotes;
+  });
+
+  // Filter to add tooltips to citation links
+  eleventyConfig.addFilter("citationsWithTooltips", function(content) {
+    // This filter wraps citation reference links with tooltip data
+    // Parse bibliography file to get citation details
+    const bibPath = path.join(__dirname, "site/_data/bibliography.bib");
+    const bibContent = fs.readFileSync(bibPath, "utf-8");
+
+    // Parse BibTeX entries to extract author, year, and title
+    const bibEntries = {};
+    const entries = bibContent.split(/@\w+\{/).slice(1);
+
+    entries.forEach(entry => {
+      const keyMatch = entry.match(/^([^,]+),/);
+      if (!keyMatch) return;
+
+      const key = keyMatch[1];
+      const authorMatch = entry.match(/author\s*=\s*\{([^}]+)\}/);
+      const yearMatch = entry.match(/year\s*=\s*\{?(\d+)\}?/);
+      const titleMatch = entry.match(/title\s*=\s*\{([^}]+)\}/);
+
+      // Extract first author's last name and check if multiple authors
+      let authorString = "Unknown";
+      if (authorMatch) {
+        const authors = authorMatch[1];
+        const authorList = authors.split(' and ');
+        const firstAuthorMatch = authorList[0].match(/^([^,]+)/);
+
+        if (firstAuthorMatch) {
+          const firstAuthor = firstAuthorMatch[1].trim();
+          authorString = authorList.length > 1 ? `${firstAuthor} et al.` : firstAuthor;
+        }
+      }
+
+      const year = yearMatch ? yearMatch[1] : "n.d.";
+      const title = titleMatch ? titleMatch[1] : "";
+
+      // Create citation: "Author et al. (Year). "Title.""
+      bibEntries[key] = `${authorString} (${year}). "${title}."`;
+    });
+
+    // Add tooltip to citation reference links
+    return content.replace(
+      /<a href="#bib-([^"]+)"\s+class="reference"\s+id="([^"]+)">(\d+)<\/a>/g,
+      (fullMatch, bibKey, refId, number) => {
+        const shortCite = bibEntries[bibKey] || "Citation";
+        const escapedCite = shortCite.replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+        return `<a href="#bib-${bibKey}" class="reference tooltip" id="${refId}" data-tooltip="${escapedCite}" tabindex="0">${number}</a>`;
+      }
+    );
   });
 
   // Add a collection for articles

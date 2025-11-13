@@ -49,7 +49,7 @@ layout: base.njk
 </div>
 
 <article class="d-article base-grid">
-  {{ content | safe }}
+  {{ content | citationsWithTooltips | safe }}
 </article>
 
 <div class="d-appendix base-grid">
@@ -65,7 +65,7 @@ layout: base.njk
     <h3>References</h3>
     <ol class="d-citation-list">
       {% for reference in references %}
-      <li>{{ reference | bibliography_entry | safe }}</li>
+      <li id="bib-{{ reference.id }}">{{ reference | bibliography_entry | safe }}</li>
       {% endfor %}
     </ol>
     {% endif %}
