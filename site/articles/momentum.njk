@@ -48,6 +48,29 @@ c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
 {% endmathblock %}
 
 <a class="marker" href="#section-1.1" id="section-1.1"><span>1.1</span></a>
+<h3>Interactive Sliders</h3>
+
+<p>Here's an interactive D3-based slider from the original Distill template:</p>
+
+<div id="demo-slider" data-slider data-min="0" data-max="100" data-step="1" data-value="50" data-ticks></div>
+
+<p>Current value: <span id="slider-value">50</span></p>
+
+<script>
+  // Update display when slider changes
+  document.addEventListener('DOMContentLoaded', function() {
+    const sliderElement = document.getElementById('demo-slider');
+    const valueDisplay = document.getElementById('slider-value');
+
+    if (sliderElement && sliderElement.slider) {
+      sliderElement.slider.onInput = function(value) {
+        valueDisplay.textContent = value.toFixed(0);
+      };
+    }
+  });
+</script>
+
+<a class="marker" href="#section-1.2" id="section-1.2"><span>1.2</span></a>
 <h3>Citations</h3>
 
 <p>{{ "We can[@mercier2011humans] also cite [@gregor2015draw; @mercier2011humans; @openai2018charter] external publications. [@dong2014image; @dumoulin2016guide; @mordvintsev2015inceptionism]." | citations | safe }} We should also be testing footnotes{% footnote %}This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.{% endfootnote %}. There are multiple footnotes, and they appear in the appendix{% footnote %}Given I have coded them right. Also, here's math in a footnote: {% math "c = \\sum_0^i{x}" %}. Also, a citation. Box-ception[@gregor2015draw]!{% endfootnote %} as well.</p>

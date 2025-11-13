@@ -16,6 +16,7 @@ module.exports = async function(eleventyConfig) {
   // Pass through assets
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("site/css");
+  eleventyConfig.addPassthroughCopy("site/js");
   eleventyConfig.addPassthroughCopy("site/images");
   eleventyConfig.addPassthroughCopy({"src/assets/distill-favicon.png": "favicon.png"});
   eleventyConfig.addPassthroughCopy({"src/assets/distill-favicon.svg": "favicon.svg"});

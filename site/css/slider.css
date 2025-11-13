@@ -1,0 +1,70 @@
+/* Distill-style slider component */
+.d-slider {
+  position: relative;
+  width: 100%;
+  height: 21px;
+  padding: 9px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.d-slider:focus {
+  outline: 2px solid hsl(24, 100%, 50%);
+  outline-offset: 2px;
+}
+
+.d-slider-track {
+  position: absolute;
+  top: 9px;
+  width: 100%;
+  height: 3px;
+  background-color: hsla(0, 0%, 0%, 0.2);
+  border-radius: 2px;
+}
+
+.d-slider-fill {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  height: 3px;
+  background-color: hsl(24, 100%, 50%);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.d-slider-knob {
+  position: absolute;
+  top: 4px;
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  background-color: hsl(24, 100%, 50%);
+  border-radius: 50%;
+  transition: transform 0.18s ease;
+  pointer-events: none;
+}
+
+.d-slider.dragging .d-slider-knob,
+.d-slider:active .d-slider-knob {
+  transform: scale(1.5);
+}
+
+.d-slider:focus .d-slider-knob {
+  box-shadow: 0 0 0 4px hsla(24, 100%, 50%, 0.2);
+}
+
+.d-slider-ticks {
+  position: absolute;
+  top: 16px;
+  width: 100%;
+  height: 4px;
+  pointer-events: none;
+}
+
+.d-slider-ticks .tick {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  margin-left: -0.5px;
+  background-color: hsla(0, 0%, 0%, 0.2);
+}
