@@ -11,7 +11,7 @@ title: "Distill Template - Static Edition"
     <h2>Articles</h2>
     <ul>
     {%- for article in collections.articles -%}
-      <li><a href="{{ article.url }}">{{ article.data.title }}</a></li>
+      <li><a href="{{ article.url | url }}">{{ article.data.title }}</a></li>
     {%- endfor -%}
     </ul>
 

@@ -14,7 +14,7 @@ layout: base.njk
   {% endif %}
   {% if headerImage %}
   <figure class="d-title-figure">
-    <img src="{{ headerImage }}" />
+    <img src="{{ headerImage | url }}" />
   </figure>
   {% endif %}
   {% if leadParagraph %}

@@ -165,6 +165,7 @@ module.exports = async function(eleventyConfig) {
     },
     templateFormats: ["html", "njk", "md", "11ty.js"],
     htmlTemplateEngine: "njk",
-    markdownTemplateEngine: "njk"
+    markdownTemplateEngine: "njk",
+    pathPrefix: "/static-distill/"
   };
 };

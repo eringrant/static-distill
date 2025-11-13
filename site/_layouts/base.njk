@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title }}</title>
   {% if description %}<meta name="description" content="{{ description }}">{% endif %}
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="/css/distill.css">
-  <link rel="stylesheet" href="/css/tooltips.css">
-  <link rel="stylesheet" href="/css/slider.css">
+  <link rel="icon" type="image/png" href="{{ '/favicon.png' | url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/favicon.svg' | url }}">
+  <link rel="stylesheet" href="{{ '/css/distill.css' | url }}">
+  <link rel="stylesheet" href="{{ '/css/tooltips.css' | url }}">
+  <link rel="stylesheet" href="{{ '/css/slider.css' | url }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
 </head>
@@ -36,6 +36,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-  <script src="/js/slider.js"></script>
+  <script src="{{ '/js/slider.js' | url }}"></script>
 </body>
 </html>
